@@ -1,2 +1,21 @@
 # vim: ft=indentcolor
 
+recap:
+    hypothesis:
+        h(x) = t0 + t1.x
+    parameters:
+        t0,t1
+    cost function:
+        J(t0,t1) = 1/2m * sum(h(x(i)) - y(i))^2
+    goal:
+        minimize J(t0,t1) over (t0,t1)
+
+for this example, it will be simplified:
+        h(x) = t1.x
+        J(t1) = 1/2m * sum(h(x(i)) - y(i))^2
+        minimize J(t1) over (t1)
+
+cost function:
+    with training set ((1,1),(2,2),(3,3)):
+        cost function J(t1) is a parabola equal to 0 for t1=1
+        => best hypothesis is h(x) = 1*x

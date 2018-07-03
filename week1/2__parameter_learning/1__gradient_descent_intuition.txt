@@ -1,0 +1,15 @@
+# vim: ft=indentcolor
+
+Simplify function with one parameter:
+    - repeat until convergence:
+        t1 := t1 - alpha*dJ(t1)/dt1
+    - if:
+        derivative positive, decrease t1
+        derivative negative, increase t1
+    - alpha:
+        + too small: can be slow
+        + too big: can overshoot the minimum and fail to converge
+        + with a fixed alpha:
+            * steps (-alpha*dJ/dt1) will get smaller when closer to minimum,
+            because abs(dJ/dt1) gets smaller
+            * no need to have a variable alpha

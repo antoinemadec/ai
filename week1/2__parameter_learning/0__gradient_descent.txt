@@ -1,0 +1,22 @@
+# vim: ft=indentcolor
+
+What is it:
+    - algo used in machine learning to minimize function
+    - the goal will be to minimize the cost function:
+        + have some func J(t0,t1), we want min(J(t0,t1)) over (t0,t1)
+        + outline:
+            1- start with some t0,t1
+            2- keep changing t0,t1 to reduce J(t0,t1) until we hopefully end up
+            at a minimum
+
+Algorithm:
+    repeat until convergence:
+        tj := tj - alpha*dJ(t0,t1)/dtj      (for j in {0,1})
+    correct simultaneous update:
+        temp0 := t0 - alpha*d(J(t0,t1))/dt0
+        temp1 := t1 - alpha*d(J(t0,t1))/dt1
+        t0    := temp0
+        t1    := temp1
+    alpha:
+        learning rate
+        control the size of each step

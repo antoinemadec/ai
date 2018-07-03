@@ -1,0 +1,30 @@
+# vim: ft=indentcolor
+
+Matrix example:
+    rectangular array of numbers
+        A =
+            |0 1|
+            |3 4|
+            |6 7|
+            |2 5|
+        4x2 matrix (4 rows, 2 columns)
+        can be written: R4x2
+    entries of a matrix:
+        A12 = 1     (1-indexed by default)
+
+Vector example:
+    nx1 matrix
+        y =
+            |0|
+            |1|
+            |2|
+            |3|
+        n=4
+        can be written: R4
+    entries of a vector:
+        y1 = 0      (1-indexed)
+
+Conventions:
+    - 1-indexed is the default
+    - uppercase for matrices (A,B,C)
+    - lowercase for vectors (a,b,c)

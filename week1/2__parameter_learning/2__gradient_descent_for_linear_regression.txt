@@ -1,0 +1,22 @@
+# vim: ft=indentcolor
+
+Algorithm:
+    linear regression model:
+        h(x) = t0 + t1.x
+        J(t0,t1) = 1/2m * sum((h(x(i))-y(i))^2)
+    gradient descent:
+        tj := tj - alpha*dJ(t0,t1)/dtj      (for j in {0,1})
+    minimize J(t0,t1) with gradient descent
+
+Derivative computation:
+    dJ(t0,t1)/dtj = d/dtj * 1/2m * sum((h(x(i))-y(i))^2)
+    .             = d/dtj * 1/2m * sum((t0+t1*x(i)-y(i))^2)
+    so:
+        dJ(t0,t1)/dt0 = 1/m * sum(h(x(i))-y(i))
+        dJ(t0,t1)/dt1 = 1/m * sum((h(x(i))-y(i))*x(i))
+    for linear regression:
+        local minimum = global minimum
+
+Vocabulary:
+    "batch" gradient descent:
+        each step of gradient descent uses all the training examples

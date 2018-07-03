@@ -1,0 +1,14 @@
+# vim: ft=indentcolor
+
+recap:
+    hypothesis:
+        h(x) = t0 + t1.x
+    parameters:
+        t0,t1
+    cost function:
+        J(t0,t1) = 1/2m * sum(h(x(i)) - y(i))^2
+    goal:
+        minimize J(t0,t1) over (t0,t1)
+
+for this example, no simplification:
+    J(t0,t1) plot is 3D
