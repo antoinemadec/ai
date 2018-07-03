@@ -1,0 +1,12 @@
+# vim: ft=indentcolor
+
+examples:
+    - database mining
+        large datasets from automation/web
+        e.g.: web click data, medical records, biology, engineering
+    - applications cant program by hand
+        e.g.: autonomous helicopter, handwriting recogn, language, CV
+    - self customizing programs:
+        e.g.: Amazon, Netflix recommendations
+    - understanding human learning
+

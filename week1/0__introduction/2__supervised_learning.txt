@@ -1,0 +1,14 @@
+# vim: ft=indentcolor
+
+example:
+    house price prediction:
+        price = f(square_feet)
+        linear function, polynomial?
+    breast cancer (malignant or benign):
+        malignant = f(tumor_size) ; 1(yes) or 0(no)
+        might also be: malignant = f(size,age,thickness,shape etc)
+
+vocabulary:
+    supervised learning:    "right answers" are given
+    classification:         output is discrete
+    regression:             output is continuous

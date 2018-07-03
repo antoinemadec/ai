@@ -1,0 +1,12 @@
+# vim: ft=indentcolor
+
+context:
+    - training set
+    - hypothesis: h(x) = t0 + t1.x
+    - t0 and t1 are parameters
+    - goal:
+        + h(x) close to y for training examples (x,y)
+        + that is to say:
+            cost function: J(t0,t1) = 1/2m * sum[h(x(i))-y(i)]2
+            square error function
+            minimize over(t0,t1) J(t0,t1)

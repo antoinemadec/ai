@@ -1,0 +1,26 @@
+# vim: ft=indentcolor
+
+what is unsupervised learning:
+    - no label is given with the dataset
+    - the goal is to create groups from those data
+        + clustering algorithm
+    - definition:
+        Unsupervised learning allows us to approach problems with little or no
+        idea what our results should look like. We can derive structure from
+        data where we don't necessarily know the effect of the variables.
+
+        We can derive this structure by clustering the data based on
+        relationships among the variables in the data.
+
+        With unsupervised learning there is no feedback based on the prediction
+        results.
+
+examples:
+    - organize computing clusters
+    - social network analysis
+    - market segmentation
+    - astronomical data analysis
+    - cocktail party problem:
+        + microphone 1: person 1 louder than person 2
+        + microphone 2: person 2 louder than person 1
+        + goal: separate person 1 from person 2

@@ -1,0 +1,29 @@
+# vim: ft=indentcolor
+
+example:
+    Housing Prices:
+        - price = f(square_feet)
+        - suppervised learning
+        - regression problem
+
+notation:
+    m:           nb of training examples
+    x's:         "input" variable/features
+    y's:         "output" variable/features
+    (x,y):       one training example
+    (x(i),y(i)): i-th training example
+
+flow:
+    training set
+        |
+        |
+        V
+    learning algorithm
+        |
+        |
+        V
+    x --> h --> predicted y
+
+model for this example:
+    linear regression with one variable:
+        h(x) = a.x + b
