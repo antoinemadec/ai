@@ -1,0 +1,23 @@
+# vim: ft=indentcolor
+
+Notation:
+    n:     number of features (i.e. input variables)
+    x(i):  input features of i-th training example (vector)
+    xj(i): value of feature j in i-th taining example
+    e.g.:
+        x(2) =
+            |1416|
+            |   3|
+            |   2|
+            |  40|
+        x3(2) = 2
+
+Hypothesis with multiple features:
+    new linear hypothesis:
+        h(x) = t0 + t1.x1 + t2.x2 + ... + tn.xn
+    for convenience of notation, define x0=1:
+        x =             t =
+            |x0 |           |t0 |
+            |...|           |...|
+            |xn |           |tn |
+        h(x) = tT*x

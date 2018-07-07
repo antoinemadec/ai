@@ -1,0 +1,21 @@
+# vim: ft=indentcolor
+
+Recap:
+    - theta formula to minimize cost function:
+        t = (XT*X)^-1 * XT*y
+        + in octave:
+            pinv(X'*X)*X'*y
+
+What if XT*X is non-invertible?
+    - pinv in Octave, will work (pseudo-inv)
+    - causes:
+        + redundant features - linearly dependent:
+            * e.g.:
+                x1 = size in feet2
+                x2 = size in m2
+        + too many features:
+            * e.g.:
+                m <= n
+            * solution:
+                ~ delete some features
+                ~ use regularization

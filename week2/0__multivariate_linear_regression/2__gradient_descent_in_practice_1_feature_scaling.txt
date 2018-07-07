@@ -1,0 +1,18 @@
+# vim: ft=indentcolor
+
+Feature Scaling:
+    - idea:
+        make sure features are on a similar scale,
+        otherwise, converging to minimum might take a long time
+    - implementation:
+        get every feature into approximately:
+            -1 <= xi <= 1
+
+Mean Normalization:
+    - idea:
+        replace xi (except for x0) with:
+            (xi - mean(xi)) / (max(xi)-min(xi))
+    - implementation:
+        x1 = (size - 1000)/2000
+        x2 = (#bedrooms - 2)/5
+        -0.5<=xj<=0.5

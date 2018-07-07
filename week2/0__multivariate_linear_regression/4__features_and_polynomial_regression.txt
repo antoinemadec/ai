@@ -1,0 +1,21 @@
+# vim: ft=indentcolor
+
+Example:
+    - use linear regression:
+        + h(x) = t0 + t1*frontage + t2*depth
+            * where:
+                x1 = frontage
+                x2 = depth
+    - or change the features:
+        + h(x) = t0 + t1*size = t0 + t1*(frontage*depth)
+    - or use polynomial regression:
+        + h(x) = t0 + t1.x + t2.x^2 + t3.x^3
+            * where:
+                x = size
+        + can be mapped to a linear regression with:
+            x1 = size
+            x2 = size^2
+            x3 = size^3
+
+How to choose which model to choose?
+    - use an algorithm

@@ -1,0 +1,20 @@
+# vim: ft=indentcolor
+
+Learning rate:
+    - gradient descent:
+        + tj = tj - alpha*dJ(t)/dtj
+        + how to make sure to get the right alpha?
+    - number of iteration depends on application
+
+Choosing the right alpha:
+    - alpha is OK:
+        + automatic convergence test:
+            * convergence if J(t) decreases by less than 10^-3
+    - alpha is not OK:
+        + J(t) increases:
+            * use a smaller alpha
+        + J(t) does bumps:
+            * use a smaller alpha
+    - concretely:
+        + try:
+            alpha = 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1

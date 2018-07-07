@@ -1,0 +1,19 @@
+# vim: ft=indentcolor
+
+Recap:
+    - hypothesis:
+        h(x) = tT*x = t0.x0 + ... + tn.xn
+    - parameters:
+        t = t0,t1,...,tn
+    - cost function:
+        J(t) = 1/2m * sum( (h(x(i)) - y(i))^2 )
+
+Gradient descent:
+    - algo:
+        tj := tj - alpha*dJ(t)/dtj      (for j in {0..n})
+    - previously with 1 feature:
+        t0 = t0 - alpha/m * sum(h(x(i))-y(i))
+        t1 = t1 - alpha/m * sum((h(x(i))-y(i))*x(i))
+    - with multiple features:
+            tj = tj - alpha/m * sum((h(x(i))-y(i))*xj(i))
+

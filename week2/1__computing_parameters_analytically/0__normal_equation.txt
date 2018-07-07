@@ -1,0 +1,48 @@
+# vim: ft=indentcolor
+
+Recap:
+    - for now:
+        + we use gradient descent algo to approach minimum
+    - normal equation:
+        + solve min(J(t)) over t in 1 equation
+
+Intuition:
+    - if 1D:
+        + J(t) = a.t^2 + b.t + c
+        + to solve minimum:
+            * dJ(t)/dt = 0
+    - if multi-D:
+        + J(t0,t1,...,tn)
+        + to solve minimum:
+            * dJ(t)/dtj = 0     (for every j)
+
+Normal equation:
+    + m = 4 ; n = 4
+    + X =
+        |1    2104    5   1   45  |
+        |1    1416    3   2   40  |
+        |1    1534    3   2   30  |
+        |1     852    2   1   36  |
+        size = m*(n+1)
+    + y =
+        |460|
+        |232|
+        |315|
+        |178|
+        size = m
+    + theta formula to minimize cost function:
+        t = (XT*X)^-1 * XT*y
+        + in octave:
+            inv(X'*X)*X'*y
+
+When to use Gradient Descent Vs Normal Equation:
+    - gradient descent:
+        + need to choose alpha
+        + needs many iterations
+        + work well even when n is large
+    - normal equation:
+        + no need to choose alpha
+        + no need to iterate
+        + slow when n is large:
+            * need to compute (XT*X)^-1
+            * inversing a matrix is O(n^3)
