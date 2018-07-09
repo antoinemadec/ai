@@ -1,0 +1,33 @@
+# vim: ft=indentcolor
+
+Commands:
+    - size:
+        >> s = size(A)
+        >> s(2) == size(A,2)    % true
+        >> length(v)
+            3
+        >> size(v)
+            1 3
+    - file:
+        >> load featuresX.dat   % or load('featuresX.dat')
+        >> load priceY.dat
+        >> size(fearuesX)
+            47 2
+        >> size(priceY)
+            47 1
+        >> save hello.txt v -ascii  % save file
+    - misc:
+        >> clear myvar
+        >> whos % print detailed variables
+        >> whos % print variables
+
+Data:
+    - matrix:
+        >> A(3,2)
+        >> A(2,:)                 % second row
+        >> A(:,2)                 % second col
+        >> A([1 3], :)            % first and second rows
+        >> A = [A, [100;101;102]] % append another col vector to the right
+        >> A(:)                   % put all elements of A in a single vector
+        >> C = [A B]              % A on the left, B on the right
+        >> C = [A; B]             % A on top, B on bottom
