@@ -1,0 +1,20 @@
+# vim: ft=indentcolor
+
+Vectorization example:
+    - unvectorized:
+        + h(x) = sum(tj*xj)
+        + write with for loops
+        + slower
+    - vectorized:
+        + h(x) = tT*x
+        + >> prediction = theta'*x
+        + faster
+    - example with gradient descent:
+        + unectorized:
+            t0 := t0 - alpha/m * sum( (h(x(i))-y(i))*x0(i) )
+            t1 := t1 - alpha/m * sum( (h(x(i))-y(i))*x1(i) )
+            t2 := t2 - alpha/m * sum( (h(x(i))-y(i))*x2(i) )
+        + vectorized:
+            t = [t0;t1;t2]
+            t := t -alpha*delta
+            where delta = 1/m * sum( (h(x(i)) - y(i))*x(i) )

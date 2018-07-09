@@ -1,0 +1,49 @@
+# vim: ft=indentcolor
+
+Lor loop:
+    >> for i=1:10,
+        v(i) = 2^i;
+    end;
+
+While, if, break:
+    >> i = 1;
+    >> while i <=5,
+        v(i) = 100;
+        i = i+1;
+    end;
+    >> i = 1;
+    >> while true,
+        v(i) = 100;
+        i = i+1;
+        if i == 6,
+            break;
+        end;
+    end;
+
+    >> if 2 == 1,
+        disp('coucou');
+    elseif 2==2,
+        disp('salut');
+    else
+        disp('else');
+    end;
+
+Functions:
+    - need to create a file, e.g.:
+        + squareThisNumber.m
+            function y = squareThisNumber(x)
+            y = x^2
+        + squareAndCubeThisNumber.m
+            function [y1, y2] = squareAndCubeThisNumber(x)
+            y1 = x^2
+            y2 = x^3
+    - search for files/function in current path
+    - addpath('mypath')
+    - example:
+        >> X = [1,1;1,2;1,3];
+        >> y = [1;2;3]
+        >> theta = [0;1]
+        >> j = costFunctionJ(X,y,theta)
+            j = 0
+        >> j = costFunctionJ(X,y,[0;0])
+            2.33
