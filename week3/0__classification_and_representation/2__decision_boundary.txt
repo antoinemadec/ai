@@ -1,0 +1,24 @@
+# vim: ft=indentcolor
+
+Logistic regression:
+    - h(x) = g(tT*x)
+    - g(z) = 1/(1+e(-z))
+    - suppose predict:
+        + y = 1 if h(x) >= 0.5
+        + y = 0 if h(x) < 0.5
+    - h(x) >= 0.5 if and only if:
+        + g(z)  >= 0
+            + tT*x  >= 0
+
+Decision Boundary:
+    - h(x) = g(t0 + t1*x1 + t2*x2)
+        + if t = [-3;1;1]
+            * y = 1 if:
+                ~ tT*x >= 0
+                ~ -3 + x1 + x2 >= 0
+                ~ x1 + x2 >= 3
+                    this is the decision boundary
+    - non-linear decision boundaries:
+        + e.g.:
+            * h(x) = g(-1 + x1^2 + x2^2)
+            * y=1 if    x1^2 + x^2 >= 1

@@ -1,0 +1,17 @@
+# vim: ft=indentcolor
+
+Logistic Regression Model:
+    - want 0 <= h(x) <= 1
+    - linear regression representation:
+        + h(x) = tT*x
+    - logistic regression representation:
+        + h(x) = g(tT*x)
+            * g(z) = 1/(1+e(-z))
+        + h(x) = 1/(1+e(-tT*x))
+        + logistic function = sigmoid function
+        + the goal is still to minimize the error over theta
+
+Interpretation of hypothesis output:
+    - h(x) = estimated probability that y=1 on input x
+        + h(x) = 0.7 : 70% chance of malignant tumor
+        + h(x) = P(y=1|x; t)

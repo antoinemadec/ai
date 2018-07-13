@@ -1,0 +1,16 @@
+# vim: ft=indentcolor
+
+Classification:
+    - examples:
+        + email: spam/not spam
+        + online transactions: fraudulent/not fraudulent
+    - y in {0,1}
+    - multi-class classification: y in {0,1,...,k-1}
+
+Algorithm:
+    - first intuition: let's use linear regression with threshold
+        + arbitrary threshold (0.5) does not work
+        + y is 0 or 1, h(x) can be >1 or <0 !!!
+        + it is not a great idea !!!
+    - logistic regression:
+        + 0 <= h(x) <= 1
