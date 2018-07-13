@@ -1,0 +1,20 @@
+# vim: ft=indentcolor
+
+Logistic model recap:
+    - training set: {(x(1),y(1)),...,(x(m),y(m))}
+        + m examples
+        + n feature: x = [x0;x1;...;xn] with x0 = 1
+        + y in {0,1}
+    - hypothesis: h(x) = 1/(1+e(-tT*x))
+    - how to choose parameters t?
+
+Cost function:
+    - linear regression:
+        + J(t)  = 1/2m * sum( (h(x(i)-y(i)))^2 )
+        +       = 1/m * sum( Cost(h(x(i)), y(i)) )
+            * where Cost(h(x),y) = 1/2 * (h(x)-y)^2
+    - logistic regression:
+        + Cost(h(x),y) cannot be the same, cause it would not be convex
+        + new Cost:
+            * Cost(h(x),y) =    | -log(h(x))    if y = 1
+            .                   | -log(1-h(x))  if y = 0

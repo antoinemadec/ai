@@ -1,0 +1,16 @@
+# vim: ft=indentcolor
+
+Gradient descent complexity:
+    - J(t)
+    - dJ(t)/dtj     for j = 0,1,...,n
+    - tj := tj - alpha*dJ(t)/dtj
+
+Other optimization algorithm:
+    - conjugate gradient
+    - BFGS
+    - L-BFGS
+    - advantages of those algo:
+        + no need to manually pick alpha
+        + faster than gradient descent
+    - disadvantages:
+        + more complex

@@ -1,0 +1,17 @@
+# vim: ft=indentcolor
+
+Logistic regression cost function:
+    - J(t) = 1/m * sum( Cost(h(x(i)), y(i)) )
+        + Cost(h(x),y) =    | -log(h(x))    if y = 1
+        .                   | -log(1-h(x))  if y = 0
+        + or on 1 line:
+            * Cost(h(x),y) = -y*log(h(x)) - (1-y)*log(1-h(x))
+    - J(t) = -1/m * sum( y(i)*log(h(x(i))) + (1-y(i))*log(1-h(x(i))) )
+
+Gradient descent:
+    - tj := tj - alpha* dJ(t)/dtj
+    - tj := tj - alpha* sum( (h(x(i))-y(i))*xj(i) )
+        + looks like linear regression
+        + except h(x) is different
+    - vectorized version:
+        + θ:=θ - α/m * XT*(g(X*θ)-y)
