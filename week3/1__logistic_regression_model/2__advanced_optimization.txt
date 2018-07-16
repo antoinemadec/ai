@@ -14,3 +14,14 @@ Other optimization algorithm:
         + faster than gradient descent
     - disadvantages:
         + more complex
+
+Optimization in Octave:
+    - provide:
+        function [jVal, gradient] = costFunction(theta)
+            jVal = [...code to compute J(theta)...];
+            gradient = [...code to compute derivative of J(theta)...];
+        end
+    - call:
+        options = optimset('GradObj', 'on', 'MaxIter', 100);
+        initialTheta = zeros(2,1);
+        [optTheta, functionVal, exitFlag] = fminunc(@costFunction, initialTheta, options);

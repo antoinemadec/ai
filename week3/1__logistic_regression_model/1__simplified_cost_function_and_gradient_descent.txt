@@ -6,7 +6,7 @@ Logistic regression cost function:
         .                   | -log(1-h(x))  if y = 0
         + or on 1 line:
             * Cost(h(x),y) = -y*log(h(x)) - (1-y)*log(1-h(x))
-    - J(t) = -1/m * sum( y(i)*log(h(x(i))) + (1-y(i))*log(1-h(x(i))) )
+    - J(t) = -[ 1/m * sum( y(i)*log(h(x(i))) + (1-y(i))*log(1-h(x(i))) ) ]
 
 Gradient descent:
     - tj := tj - alpha* dJ(t)/dtj

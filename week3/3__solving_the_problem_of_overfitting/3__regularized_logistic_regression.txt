@@ -1,0 +1,11 @@
+# vim: ft=indentcolor
+
+Gradient Descent:
+    - cost function:
+        J(t) = -[ 1/m * sum( y(i)*log(h(x(i))) + (1-y(i))*log(1-h(x(i))) ) ]  + (lambda/2*m)*sum(tj^2)
+    - gradient:
+        + for j=O
+            t0 := t0 - alpha/m * sum(h(x(i))-y(i)*x0(i))
+        + else
+            tj := tj - alpha*[1/m * sum(h(x(i))-y(i)*xj(i)) + lambda/m*tj]
+            tj := tj(1-alpha*lambda/m) - alpha/m * sum(h(x(i))-y(i)*xj(i))

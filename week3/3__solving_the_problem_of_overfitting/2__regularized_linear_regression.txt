@@ -1,0 +1,23 @@
+# vim: ft=indentcolor
+
+Gradient Descent:
+    - try to minimize cost function ... :
+        J(t) = 1/2m [sum( (h(x(i))-y(i))^2 )  + (lambda/2*m)*sum(tj^2) ]
+    - ... using gradient descent:
+        + for j=O
+            t0 := t0 - alpha/m * sum(h(x(i))-y(i)*x0(i))
+        + else
+            tj := tj - alpha*[1/m * sum(h(x(i))-y(i)*xj(i)) + lambda/m*tj]
+            tj := tj(1-alpha*lambda/m) - alpha/m * sum(h(x(i))-y(i)*xj(i))
+    - imply:
+        + (1 - alpha/m) < 1
+        + usually = 0.99
+
+Normal Equation:
+    - previously:
+        t = (XT*X)^-1 * XT*y
+    - with regularization now:
+            t = (XT*X + lambda*Id)^-1 * XT*y
+    - non invertible:
+        + if m <= n if no regularization
+        + always invertible if regularization

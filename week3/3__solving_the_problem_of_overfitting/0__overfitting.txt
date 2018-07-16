@@ -1,0 +1,22 @@
+# vim: ft=indentcolor
+
+What is overfitting:
+    - underfit:
+        + when model does not follow training example
+        + the model has a "high bias"
+    - overfitting:
+        + a complex model is created to exactly match the training example
+        + the model has "high variance"
+    - problem: model too complex to match accurately the training set will make poor prediction on unseen examples
+
+Addressing overfitting:
+    - plotting:
+        + works when not a lot of features
+        + does not scale (e.g.: n=100)
+    - options:
+        1- reduce number of features
+            * manually select which features to keep
+            * model selection algorithm
+        2- regularization
+            * keep all the features, but reduce magnitude values of parameters tj
+            * works well when we have a lot of features, each of which contributes a bit to predicting y

@@ -1,0 +1,15 @@
+# vim: ft=indentcolor
+
+Principle:
+    - minmize J(t) + 1000*t3^2 + 1000*t4^2
+    - imply t3~=0 and t4~=0
+    - small values for params t0,..tn:
+        + simpler hypothesis
+        + less prone to overfitting
+
+New Cost Function:
+    - J(t) = 1/2m [sum( (h(x(i))-y(i))^2 )  + (lambda/2m)*sum(tj^2) ]
+        + where tj starts at 1, not 0
+        + where lambda is a constant:
+            * the regularization parameter
+            * controls the trade-off over/under fitting

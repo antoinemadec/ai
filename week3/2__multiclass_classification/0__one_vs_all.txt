@@ -1,0 +1,16 @@
+# vim: ft=indentcolor
+
+Examples:
+    - email foldering/tagging: work, friends, family, hobby
+                                y=1     y=2     y=3     y=4
+    - medical diagrams: not ill, cold, flu
+    - y can start from 1 or 0, it is equivalent
+
+Principle:
+    - also called, one-vs-rest
+    - principle:
+        + if 3 y values:
+            - create 3 hypothesis
+            - modify training set (y=1 or not_1; y=2 or not_2; y=3 or not_1)
+        + h(i)(x) = P(y=i|x; t)     for (i=1,2,3)
+        + prediction = max(h(i)(x)  over i
