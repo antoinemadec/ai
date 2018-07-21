@@ -1,0 +1,9 @@
+# vim: ft=indentcolor
+
+Neuron Networks:
+    - we already use non-linear features with linear/logistic regression...:
+        + e.g.:
+            h(t)= g(t0 +t1*x1 + t2*x1*x2 + t3*x3^3...)
+    -...so why do we need NN?:
+        + using non-linear/quadratic features might increase the feature number too much
+        + especially in computer vision

@@ -1,0 +1,41 @@
+# vim: ft=indentcolor
+
+Human Neuron / Neuron Model:
+    - dendrites: input wires
+    - nucleus+cell body: processing
+    - axon: output wire
+    - neuron model - logistic unit:
+        x1 ------------> |      |
+        x2 ------------> | h    | ----->   h(x) = g(tT*x) = g(t0*x0 + .. t3*x3)
+        x3 ------------> |      |
+        # "input wires"   nucleus       output
+        # sigmoid = logistic = activation function = g(z) = 1/(1+e-z)
+        # parameters = weights = t
+        # bias unit = x0 = 1
+
+Neural Network:
+    - multiple neuron connected:
+        x1 ---->->-----> | a1(2) | ----->   | |
+        .    | | |                          | |
+        x2 -->--->-----> | a2(2) | ----->   | | ----> h(x)
+        .    | | |                          | |
+        x3 -->->-------> | a3(2) | ----->   | |
+        #layer1          layer2             layer3
+        #input layer     hidden layer       output layer
+            * ai(j) = activation of unit i in layer
+            * THETA(j) = matrix of wight controlling function mapping from layer j to j+1
+                ~ a1(2) = g(THETA10(1)*x0 + ... + THETA13(1)*x3)
+                ~ a2(2) = g(THETA20(1)*x0 + ... + THETA23(1)*x3)
+                ~ a3(2) = g(THETA30(1)*x0 + ... + THETA33(1)*x3)
+                ~ h(x)  = g(THETA10(2)*x0 + ... + THETA13(2)*x3)
+                ~ THETA:
+                    THETA(1) is 3x4 in our example
+                        3 = 3 units in layer 1
+                        4 = 3 feature + 1 bias
+                    THETA(2) is 1x4 in our example
+                        1 = 1 unit in output layer
+                        4 = 3 feature + 1 bias
+                    more generally:
+                        if sj units in layer j
+                        if sjp1 units in layer j+1
+                        dim(THETA(j)) = sjp1 x (sj + 1)

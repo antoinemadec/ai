@@ -1,0 +1,15 @@
+# vim: ft=indentcolor
+
+Neural Networks:
+    - origins:
+        + algorithms that try to mimic the brain
+    - widely used in 80s and early 90s; diminished in late 90s
+    - recent resurgence:
+        + computer are now fast enough
+        + state of the art technique
+
+Why Mimicking the Brain:
+    - too complex to create a huge algorithm to recognize images
+    - hypothesis:
+        + brain uses "one learning algorithm"
+        + why not trying to find that algorithm instead?
