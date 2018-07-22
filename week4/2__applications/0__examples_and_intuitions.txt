@@ -1,0 +1,17 @@
+# vim: ft=indentcolor
+
+
+Case study:
+    - AND:
+        + x1 AND x2 ~= g(-30 + 20*x1 + 20*x2)
+    - OR:
+        + x1 OR x2  ~= g(-10 + 20*x1 + 20*x2)
+    - NOT(x1) AND NOT(x2):
+        + ~= g(10 -20*x1 -20*x2)
+    - non-linear classification example: XNOR (=not(XOR))
+        + a1(2) = x1 AND x2
+        + a2(2) = NOT(x1) AND NOT(x2)
+        + a1(3) = h(x)
+            = a1(2) OR a2(2)
+            = x1 XNOR x2
+

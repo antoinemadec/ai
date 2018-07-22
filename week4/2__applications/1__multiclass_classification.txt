@@ -1,0 +1,11 @@
+# vim: ft=indentcolor
+
+Multiple Output Units: One-vs-all
+    - e.g.: is it a pedestrian, car, motorcycle or a truck
+        + 4 output units:
+            * h(x) E R4
+        + we want:
+            * h(x) ~=[1;0;0;0] when pedestrian
+            * h(x) ~=[0;1;0;0] when car
+            * h(x) ~=[0;0;1;0] when motorcycle
+            * h(x) ~=[0;0;0;1] when truck
