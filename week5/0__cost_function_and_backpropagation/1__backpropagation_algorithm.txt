@@ -1,0 +1,35 @@
+# vim: ft=indentcolor
+
+Gradient Computation:
+    - cost function:
+        J(THETA) = -(1/m)*[sum(sum( yk(i)*log((h(x(i))k)) + (1-yk(i))*log(1-(h(x(i)))k) ))]  + (lambda/2*m)*sum(sum(sum(THETAji(l)^2)))
+    - goal: minimize J(THETA)
+        + need J(THETA)
+        + need d(J(THETA))/dTHETAij(l)
+
+Backpropagation Algorithm
+    - we know that:
+        + z(j) = THETA(j-1)*a(j-1)
+        + a(j) = g(z(j))
+    - intuition:
+        + deltaj(l) = "error" of node j in layer l
+        + for each output unit (layer L=4):
+            deltaj(4) = aj(4) - yj = (h(x))j - yj
+            ~ vectorization:
+                delta(4) = a(4) - y
+                delta(3) = (THETA(3))T*delta(4).*(a(3).*(1-a(3)))
+                delta(2) = (THETA(2))T*delta(3).*(a(2).*(1-a(2)))
+                no delta(1): input layer
+    - without regularization:
+        + d(J(THETA))/dTHETAij(l) = aj(l)*deltai(l+1)
+    - implementation:
+        DELTAij(l) = 0  for all i,j,l
+        for k in 1:m
+            set a(1) = x(k)
+            perform forward propagation to compute a(l) for l = 2,3..,L
+            using y(k) to compute delta(L) = a(L) - y(k)
+            compute delta(L-1),...,delta(2)
+            DELTAij(l) += aj(l)*deltai(l+1)
+        Dij(l) = (1/m) * DELTAij(l) + lambda*THETAij(l) if j!=0
+        Dij(l) = (1/m) * DELTAij(l)                     if j==0
+        d(J(THETA))/dTHETAij(l) = Dij(l)

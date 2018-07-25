@@ -1,0 +1,20 @@
+# vim: ft=indentcolor
+
+Recap:
+    z(j) = THETA(j-1)*a(j-1)
+    a(j) = g(z(j))
+
+Notation:
+    - {(x(1),y(1)), ... ,(x(m),y(m))}: training set
+    - L:                               total nb of layers
+    - sl:                              nb of units (not counting bias) in layer l
+    - K:                               output units; y and h(x) in RK
+
+Cost Function:
+    - logistic regression - regularized:
+        J(t) = -(1/m)*[sum( y(i)*log(h(x(i))) + (1-y(i))*log(1-h(x(i))) )]  + (lambda/2*m)*sum(tj^2)
+    - NN - regularized:
+        - whith:
+            (h(x))k: k-th output
+        - we have:
+            J(THETA) = -(1/m)*[sum(sum( yk(i)*log((h(x(i))k)) + (1-yk(i))*log(1-(h(x(i)))k) ))]  + (lambda/2*m)*sum(sum(sum(THETAji(l)^2)))

@@ -1,0 +1,23 @@
+# vim: ft=indentcolor
+
+Forwardpropagation:
+    z(j) = THETA(j-1)*a(j-1)
+    a(j) = g(z(j))
+
+Backpropagation:
+    delta(4) = a(4) - y
+    delta(3) = (THETA(3))T*delta(4).*(a(3).*(1-a(3)))
+    delta(2) = (THETA(2))T*delta(3).*(a(2).*(1-a(2)))
+    no delta(1): input layer
+
+Compute J(THETA) derivatives:
+    DELTAij(l) = 0  for all i,j,l
+    for k in 1:m
+        set a(1) = x(k)
+        perform forward propagation to compute a(l) for l = 2,3..,L
+        using y(k) to compute delta(L) = a(L) - y(k)
+        compute delta(L-1),...,delta(2)
+        DELTAij(l) += aj(l)*deltai(l+1)
+    Dij(l) = (1/m) * DELTAij(l) + lambda*THETAij(l) if j!=0
+    Dij(l) = (1/m) * DELTAij(l)                     if j==0
+    d(J(THETA))/dTHETAij(l) = Dij(l)
