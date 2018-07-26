@@ -73,6 +73,7 @@ A3 = sigmoid(Theta2*A2);
 size(A3)
 
 % TODO: map y
+% A(sub2ind([10 10], x, y)) = 0
 
 J = sum(-y.*log(predictions) - (1-y).*log(1-predictions))/m ;
 %+ ...
