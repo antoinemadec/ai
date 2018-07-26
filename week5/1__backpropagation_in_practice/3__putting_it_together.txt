@@ -1,0 +1,19 @@
+# vim: ft=indentcolor
+
+Training a Neural Network:
+    1- pick a network architecture
+        + nb of input units:        dimension of features x(i)
+        + nb of output units:       number of classes
+        + nb of hidden layer/units: reasonable 1 hidden layer, if >1: keep same units nb
+    2- algo:
+        2.1- randomly initialize weights
+        2.2- implement forward propagation to get h(x(i)) for any x(i)
+        2.3- implement code to compute J(THETA)
+        2.4- implement backprop to compute partial derivatives dJ/dTHETAjk(l)
+        2.5- use gradient checking; then disable it
+        2.6- use gradient descent or advance optimization method to minimize J(THETA)
+
+Notes:
+    - J(THETA) is not convex for NN:
+        + can hit local minima
+        + in practice, not a problem, get good local minimum

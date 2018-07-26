@@ -1,0 +1,50 @@
+# vim: ft=indentcolor
+
+Recap:
+    Forwardpropagation:
+        z(j) = THETA(j-1)*a(j-1)
+        a(j) = g(z(j))
+    Backpropagation:
+        delta(4) = a(4) - y
+        delta(3) = (THETA(3))T*delta(4).*(a(3).*(1-a(3)))
+        delta(2) = (THETA(2))T*delta(3).*(a(2).*(1-a(2)))
+        no delta(1): input layer
+    Compute J(THETA) derivatives:
+        DELTAij(l) = 0  for all i,j,l
+        for k in 1:m
+            set a(1) = x(k)
+            perform forward propagation to compute a(l) for l = 2,3..,L
+            using y(k) to compute delta(L) = a(L) - y(k)
+            compute delta(L-1),...,delta(2)
+            DELTAij(l) += aj(l)*deltai(l+1)
+        Dij(l) = (1/m) * DELTAij(l) + lambda*THETAij(l) if j!=0
+        Dij(l) = (1/m) * DELTAij(l)                     if j==0
+        d(J(THETA))/dTHETAij(l) = Dij(l)
+
+Advanced Optimization:
+    - logistic regression:
+        function [jVal, gradient] = costFunction(theta)
+        optTheta = fminunc(@costFunction, initialTheta, options)
+    - neural network (L=4):
+        THETA(1),THETA(2),THETA(3)  - matrices; not vectors
+        D(1),D(2),D(3)              - matrices; not vectors
+            need to unrol those matrices in vectors
+    - NN example (L=3):
+        s1=10, s2=10, s3=1
+            THETA(1) in R10x11, THETA(2) in R10x11, THETA(3) in R1x11
+            D(1) in R10x11, D(2) in R10x11, D(3) in R1x11
+        in octave:
+            to unroll those matrices:
+                thetaVec = [THETA1(:); THETA2(:); THETA3(:)]
+                DVec = [D1(:); D2(:); D3(:)]
+            to reshape vectors in matrices:
+                Theta1 = reshape(thetaVec(1:110),10,11)
+                Theta2 = reshape(thetaVec(111:220),10,11)
+                Theta3 = reshape(thetaVec(221:231),1,11)
+    - NN learning algorithm:
+        function [jVal, gradientVec] = costFunction(thetaVec)
+            in costFunction:
+                get THETA1,2,3 from thetaVec
+                compute D1,2,3 and jVal
+                unroll D1,2,3 to return gradientVec
+        optTheta = fminunc(@costFunction, initialTheta, options)

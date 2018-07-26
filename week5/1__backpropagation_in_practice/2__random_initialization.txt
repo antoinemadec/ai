@@ -1,0 +1,12 @@
+# vim: ft=indentcolor
+
+Initial value of THETA:
+    - optTheta = fminunc(@costFunction, initialTheta, options)
+    - zero initialization problem:
+        + initializing initialTheta to zero does not work for NN
+        + it causes all weights to be equal
+    - random initialization: symmetry breaking
+        + initialize each THETAij(l) to random in [-epsilon,epsilon]
+            * e.g.:
+                Theta1 = rand(10,11)*(2*epsilon)-epsilon
+                Theta2 = rand(1,11)*(2*epsilon)-epsilon

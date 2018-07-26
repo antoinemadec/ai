@@ -1,0 +1,14 @@
+# vim: ft=indentcolor
+
+Why:
+    - what if your NN implementation is a bit buggy?
+        + resulting in poor prediction
+        + you might not even notice it
+    - solution: use gradient checking
+
+How:
+    - compare:
+        [J(THETA+epsilon)-J(THETA-epsilon)] / 2*epsilon
+        dJ(THETA)/dTHETA
+    - once this is checked, turn off for learning:
+        computation intensive
