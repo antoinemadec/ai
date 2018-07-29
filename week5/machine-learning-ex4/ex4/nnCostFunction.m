@@ -63,23 +63,31 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
-X = [ones(m, 1) X];
-
 % part 1: forward propagation
-A2 = sigmoid(Theta1*X');
+X = [ones(m, 1) X];
+A1 = X';
+A2 = sigmoid(Theta1*A1);
 A2 = [ones(1, size(A2,2)); A2];
 A3 = sigmoid(Theta2*A2);
 
-size(A3)
+Y = zeros(size(A3));
+Y(sub2ind(size(Y), y', [1:size(Y,2)])) = 1;
 
-% TODO: map y
-% A(sub2ind([10 10], x, y)) = 0
+J = sum(sum(-Y.*log(A3) - (1-Y).*log(1-A3))/m) + ...
+    (lambda/(2*m))*( sum(sum(Theta1(:,2:size(Theta1,2)).^2)) + ...
+                     sum(sum(Theta2(:,2:size(Theta2,2)).^2)) );
 
-J = sum(-y.*log(predictions) - (1-y).*log(1-predictions))/m ;
-%+ ...
-%    (lambda/(2*m))*sum(theta(2:length(theta)).^2);
+% part 2: backpropagation
+delta3 = A3-Y;
 
+delta2 = Theta2'*delta3.*(A2.*(1-A2));
+delta2 = delta2(2:end,:);
 
+Theta2NoBias = [ zeros(size(Theta2,1),1) Theta2(:,2:end) ];
+Theta1NoBias = [ zeros(size(Theta1,1),1) Theta1(:,2:end) ];
+
+Theta2_grad = (1/m) * delta3*A2' + (lambda/m) * Theta2NoBias;
+Theta1_grad = (1/m) * delta2*A1' + (lambda/m) * Theta1NoBias;
 % -------------------------------------------------------------
 
 % =========================================================================
