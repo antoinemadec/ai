@@ -1,0 +1,17 @@
+# vim: ft=indentcolor spell
+
+Evaluating your Hypothesis:
+    + how can you tell if a hypothesis is overfitting ?
+        * split your original set in:
+            ~ training set (70%)
+            ~ test set (30%)
+        * training/testing procedure:
+            1- learn parameter from training set
+            2- compute test set error Jtest(THETA)
+        * for classification, you would rather use:
+            ~ misclassification error:
+                err(h(x),y) =
+                    | 1 if h >= 0.5, y = 0
+                    | 1 if h <  0.5, y = 1
+                    | 0 otherwise
+                Test_error = 1/m_test * sum(err(h(x),y))

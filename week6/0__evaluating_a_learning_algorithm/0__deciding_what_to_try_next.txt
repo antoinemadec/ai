@@ -1,0 +1,17 @@
+# vim: ft=indentcolor spell
+
+Deciding which route to take:
+    - example:
+        + predicting housing price
+        + regularized linear regression
+        + what if error is huge on new set of houses:
+            * get more training examples
+            * try smaller sets of features
+            * try getting additional features
+            * try adding polynomial features
+            * try decreasing lambda (regularization factor)
+            * try increasing lambda (regularization factor)
+        + machine learning diagnostic:
+            * test that you can run to gain insight on what is/isn't working
+            with a learning algorithm, and gain guidance as to how best to
+            improve its performance
