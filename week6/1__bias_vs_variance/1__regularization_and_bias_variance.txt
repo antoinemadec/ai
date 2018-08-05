@@ -1,0 +1,16 @@
+# vim: ft=indentcolor spell
+
+Model:
+    - h(x) = t0 + t1*x + t2*x^2 + t3*x^3 + t4*x^4
+    - J(theta) = 1/2m * sum(h(x(i))-y(i))^2 + lambda/2m * sum(tj^2)
+    - Jcv(theta) = 1/2m * sum(h(x(i))-y(i))^2
+    - Jtest(theta) = 1/2m * sum(h(x(i))-y(i))^2
+
+Choosing the regularization param Lambda:
+    - try: 0, 0.01, 0.02, 0.04, 0.08, 1, 2, 4, 8, 10
+    - compute Jcv for each of those lambda; choose the smallest
+        like model selection
+
+Bias/variance = f(lambda):
+    - Jtrain increases
+    - Jcv: parabola

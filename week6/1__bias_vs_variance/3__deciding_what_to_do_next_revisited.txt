@@ -1,0 +1,26 @@
+# vim: ft=indentcolor spell
+
+Debugging a learning algorithm:
+    - what if error is huge on new set of houses:
+        + get more training examples
+            fixes high variance
+        + try smaller sets of features
+            fixes high variance
+        + try getting additional features
+            fixes high bias
+        + try adding polynomial features
+            fixes high bias
+        + try decreasing lambda (regularization factor)
+            fixes high bias
+        + try increasing lambda (regularization factor)
+            fixes high variance
+
+Neural Networks and overfitting:
+    - small NN:
+        + computationally cheaper
+        + fewer params
+        + prone to underfitting
+    - big NN:
+        + computationally more expensive
+        + more paramas
+        + prone to overfitting

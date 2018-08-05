@@ -1,0 +1,16 @@
+# vim: ft=indentcolor spell
+
+Learning curves:
+    - J = f(m)  # error = f(training example)
+        + Jtrain increases
+        + Jcv decreases
+    - high bias:
+        + Jtrain increases and flatten out
+        + Jcv decreases and flatten out
+        + both do not cross, asymptote
+            more training data won't help
+    - high variance:
+        + Jtrain increases slowly
+        + Jcv decreases slowly
+        + large gap between Jtrain, Jcv
+            more training data is likely to help

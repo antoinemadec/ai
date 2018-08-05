@@ -1,0 +1,16 @@
+# vim: ft=indentcolor spell
+
+Definition:
+    - high bias: underfit
+    - high variance: overfit
+
+Bias/variance:
+    - error = f(degree of polynomial)
+        + f_train: decreases
+        + f_cv: parabola
+    - bias (underfit):
+        Jtrain will be high
+        Jcv ~= Jtrain
+    - variance (overfit)
+        Jtrain will be low
+        Jcv >> Jtrain

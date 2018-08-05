@@ -1,0 +1,26 @@
+# vim: ft=indentcolor
+
+Overfitting:
+    - once training is done, the error tof the params on the training set is
+    likely to be lower than the actual generalization error
+
+Model selection:
+    - d=1:  h(x) = t0 + t1*x
+    - d=2:  h(x) = t0 + t1*x + t2*x
+    - d=3:  h(x) = t0 + t1*x + t2*x + t3*x
+        etc
+    - compute theta for d=1..n and compute Jtest(theta) for each one of them
+        how well are h(x) doing on the test set?
+        problem:
+            Jtest(tetha_5) is likely to be an optimizatic estimate of generalization error;
+            i.e.: it will fit test set
+        solution:
+            use cross validation
+
+Evaluating your hypothesis:
+    - data set 60%
+    - cross validation (CV) 20%
+    - test set 20%
+    - use CV for the model selection:
+        choose lower Jcv(theta)
+        then estimate your hypothesis, use Jtest(theta)
