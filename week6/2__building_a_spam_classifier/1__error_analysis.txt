@@ -1,0 +1,13 @@
+# vim: ft=indentcolor spell
+
+Recommended approach:
+    1- start with a simple algorithm; implement it and test it on your cross-validation data
+    2- plot learning curves to decide if more data, more features etc
+    3- error analysis manually examine the examples that your algo is making errors on (in the CV set).
+        is there any systematic trend?
+
+The importance of numerical evaluation
+    - should discount/discounts/discounted etc be treated as the same word?
+    - can use "stemming" software
+    - error analysis might not tell you if this is useful or not:
+        just try it and see for yourself

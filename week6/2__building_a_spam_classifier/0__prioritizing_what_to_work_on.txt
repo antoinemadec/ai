@@ -1,0 +1,19 @@
+# vim: ft=indentcolor spell
+
+Example:
+    - x = features of email
+    - y = spam (1) or not spam (0)
+    - features x:
+        choose 100 words indicative of spam/not spam
+        1 if work is present in the email, 0 otherwise:
+            X =
+                andrew
+                buy
+                deal
+                discount
+                now
+    - how to spend time to make it have low error
+        + collect lots of data
+        + develop sophisticated features based on email routing information
+        + develop sophisticated features for message body (e.g.: is "discount" == "discounts")
+        + develop sophisticated algorithms to detect misspellings
