@@ -1,0 +1,18 @@
+# vim: ft=indentcolor spell
+
+What is it?
+    - example: cancer classification
+        + 1% error on test set
+        + only 0.5% of patients have cancer
+            * y=0 all the time has 99.5% accuracy...
+    - solution:
+        + y=1 in presence of rare class
+        + split errors in:
+            ~ true positive
+            ~ true negative
+            ~ false positive
+            ~ false negative
+        + precision = #true_positives / (#true_positive + #false_positive)
+            of all predicted cancer, what fraction really got cancer
+        + recall = #true_positives / (#true_positive + #false_negative)
+            of all the patient having cancer, what fraction actually got predicted

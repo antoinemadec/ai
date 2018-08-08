@@ -1,0 +1,11 @@
+# vim: ft=indentcolor spell
+
+"It's not who has the best algo that wins. It's who has the most data."
+
+Large data rationale:
+    + useful test:
+        given the input x, ca a human expert confidently predict y?
+    + use a low bias algo + very large training set
+        * a lot of parameters
+        * unlikely to overfit
+            ~ when Jtrai ~= Jtest => Jtest will be small
