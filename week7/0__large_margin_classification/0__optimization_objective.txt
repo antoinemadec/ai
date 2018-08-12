@@ -1,0 +1,23 @@
+# vim: ft=indentcolor spell
+
+Support Vector Machines (SVM):
+    - logistic regression:
+        h(x) = g(z) = 1 / (1 + e^(-tT*x))
+            if y = 1, we want tT*x >> 0
+            if y = 0, we want tT*x << 0
+        cost = -y*log(g(z)) - (1-y)*log(1 - g(z))
+            if y = 1, cost = -log(g(z))
+            if y = 0, cost = -log(1 - g(z))
+                we can approximate those functions with linear functions =>
+                    support vector machine
+    - SVM:
+        instead of minimizing 1/m * sum(cost_logistic), we minimize:
+            sum(y(i)*cost1(tT*x(i)) + (1-y(i))*cost0(tT*x(i)) + lamda/2*sum(tj^2)
+                <=>
+            C*sum(y(i)*cost1(tT*x(i)) + (1-y(i))*cost0(tT*x(i)) + 1/2*sum(tj^2)
+        hypothesis:
+            + no probability
+            + h(x) =
+                1   if tT*x >= 0
+                0   otherwise
+

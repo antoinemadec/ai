@@ -1,0 +1,39 @@
+# vim: ft=indentcolor spell
+
+Recap:
+    y = 1 if
+        t0 + t1.f1 + t2.f2 + t3.f3 ... >= 0
+    given x:
+        f1 = similarity(x,l(1))
+        f2 = similarity(x,l(2))
+        f3 = similarity(x,l(3))
+        where:
+            l(n) are "landmarks"
+            similarity(a,b) = exp(-||a-b||^2 / 2.G^2)
+        if x ~= l(1)
+            f1 ~= 1
+        if x for from l(1)
+            f1 ~= 0
+
+Choosing the Landmarks:
+    choose l(1) = x(1) ... l(m) = x(m)
+    f(i) =
+        1
+        f1(i)
+        ...
+        fm(i)
+
+SVM with Kernels:
+    hypothesis:
+        y = 1   if tT*f >= 0
+    training:
+        min C*sum(y(i).cost1(tT*f(i)) + (1-y(i)).cost0(tT*f(i))) + 1/2*sum(tj^2)
+
+SVM parameters:
+    - C
+        + same role as 1/lambda
+        + large C: lower bias, high variance
+        + small C: higher bias, lower variance
+    - G^2
+        + small: lower bias, high variance
+        + large: higher bias, lower variance

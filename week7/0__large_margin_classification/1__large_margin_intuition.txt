@@ -1,0 +1,12 @@
+# vim: ft=indentcolor spell
+
+SVM = large margin optimization:
+    we try to minimize
+        C*sum(y(i)*cost1(tT*x(i)) + (1-y(i))*cost0(tT*x(i)) + 1/2*sum(tj^2)
+    if y = 1, we want tT*x >= 1
+    if y = 0, we want tT*x <= -1
+
+SVM Decision Boundary:
+    - it is more "in the middle" than logistic regression
+    - if C not too large, it discards outliers well
+

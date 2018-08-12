@@ -1,0 +1,19 @@
+# vim: ft=indentcolor spell
+
+Vector Inner Product:
+    - uT*v
+        = u1*v1 + u2*v2
+        = p.||u||
+        where:
+            p is the projection of v onto u
+            ||u|| = sqrt(u1^2 + u2^2)
+
+SVM Decision Boundary:
+    min C*0 + 1/2sum(tj^2) =
+        1/2*||t||^2
+    granted that
+        tT*x(i) >= 1        if y(i) = 1
+        tT*x(i) <= -1       if y(i) = 0
+    tT*x(i) = p(i)*||t||
+        p(i)*||t|| >= 1     if y(i) = 1
+        p(i)*||t|| <= -1    if y(i) = 0
