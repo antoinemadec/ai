@@ -1,0 +1,22 @@
+# vim: ft=indentcolor spell
+
+K-means algorithm:
+    input:
+        - K (number of clusters)
+        - training set {x(1), x(2), ... , x(m)}
+            with x(i) in Rn (no x0=1 convention)
+    algo:
+        randomly initialize K cluster centroids: u1, ... , uk in Rn
+        repeat {
+        # cluster assignment
+            for i = 1 to m
+                c(i) := index of closest centroid to x(i)
+        # move centroid
+            for k = a to K
+                uk :- average of points assigned to cluster k
+        }
+
+K-means for non-separated clusters:
+    - if not well separated
+        + e.g.: T-shirt sizing
+            * allow to create S,M,L out of continuous (size,weight) training set

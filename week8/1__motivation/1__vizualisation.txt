@@ -1,0 +1,6 @@
+# vim: ft=indentcolor spell
+
+Visualisation:
+    - e.g.: each country has 50 features:
+        + GDP, population, surface etc
+    - less features will make it easier to visualize

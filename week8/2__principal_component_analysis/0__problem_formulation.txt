@@ -1,0 +1,10 @@
+# vim: ft=indentcolor spell
+
+Principle:
+    - find lower dimension surface that minimizes |projections - original features|^2
+    - reduce from n to k-dimension:
+        find k vectors u(1), ..., u(k) minimizing the projection error
+
+PCA is not linear regression:
+    - linear reg:   ERROR = diff between line and X
+    - PCA:          ERROR = diff between projection of X on the line and X

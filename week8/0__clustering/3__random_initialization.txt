@@ -1,0 +1,10 @@
+# vim: ft=indentcolor spell
+
+Random Init:
+    - should have K < m
+    - randomly pick K training examples
+    - set u1, ..., uk equal to there K examples
+
+Local optima:
+    - depending on random init, we can end up with local optima solution
+        => solution: try different random init and measure J

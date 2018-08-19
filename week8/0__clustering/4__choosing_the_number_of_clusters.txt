@@ -1,0 +1,8 @@
+# vim: ft=indentcolor spell
+
+Elbow Method:
+    - J = f(K)
+        + choose K at the "elbow" of this curve
+        + if there is not clear "elbow", you're fucked
+
+Chosen by Hand most of the Time

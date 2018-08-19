@@ -1,0 +1,15 @@
+# vim: ft=indentcolor spell
+
+Reminder:
+    c(i)    = index of cluster to which example x(i) is currently assigned
+    uk      = cluster centroid k (uk in Rn)
+    uc(i)   = cluster centroid of cluster to which example x(i) has been assigned
+
+Optimization Objective:
+    - error or distortion:
+        J(c(1), ... , c(m), u1, ... , uk) =
+            1/m * sum( (x(i)-uc(i))^2 )
+    - objective:
+        minimize J(...) over c and u
+            * cluster assignment:   minimize J(...) over c
+            * move centroid:        minimize J(...) over u

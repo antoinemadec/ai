@@ -1,0 +1,5 @@
+# vim: ft=indentcolor spell
+
+Dimensionality Reduction:
+    - data compression:
+        + features can be redundant

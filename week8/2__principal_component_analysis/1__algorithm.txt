@@ -1,0 +1,22 @@
+# vim: ft=indentcolor spell
+
+Data preprocessing:
+    - mean normalization:
+        replace each xj(i) by:
+            (xj(i) - mean_j) / (max_j - min_j)
+
+PCA algorithm:
+    compute covariance matrix:
+        sigma = 1/m * sum( (x(i))*(x(i))T )
+            = 1/m * XT*X
+                where X = [x(1)T; ...; x(m)T]
+        nxn matrix
+    compute eigenvectors of matrix sigma:
+        [U,S,V] = svd(Sigma)
+        U is a nxn matrix
+    to reduce from n- to k- dimensions:
+        Ureduced = first k columns of U
+        is nxk matrix
+    projection is:
+        z(i) = Ureduce T * x(i)
+        k-dimensional vector

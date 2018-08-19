@@ -1,0 +1,9 @@
+# vim: ft=indentcolor spell
+
+What is it:
+    - unlabelled data (x(i), but no y(i) for training)
+    - applications of an example of unsupervised learning: clustering:
+        + market segmentation
+        + social network analysis
+        + organize computing clusters
+        + astronomical data analysis
