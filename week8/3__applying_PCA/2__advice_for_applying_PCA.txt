@@ -1,0 +1,21 @@
+# vim: ft=indentcolor spell
+
+Supervised learning speedup:
+    training set:
+        (x(1),y(1)),...,(x(m),y(m))
+    extract inputs:
+        x(1),...,x(m)   in R10000
+    apply PCA:
+        z(1),...,z(m)   in R1000
+    new training set:
+        (z(1),y(1)),...,(z(m),y(m))
+
+Note:
+    - PCA computed on training set
+    - x->z mapping can be applied on CV and test set
+
+Bad use of PCA: To prevent overfitting:
+    - false reasoning:
+        + z(i) instead of x(i) to reduce the number of featyres to k<n
+        + thus, fewer features, less likely to overfit
+    - use regularization instead

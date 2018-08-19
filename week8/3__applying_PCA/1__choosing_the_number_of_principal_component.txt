@@ -1,0 +1,24 @@
+# vim: ft=indentcolor spell
+
+Definition:
+    - avg squared proj error:
+        1/m * sum |x(i) - xapprox(i)|^2
+    - total variation in the data:
+        1/m * sum |x(i)|^2
+    - typically choose k to be the smallest value so that:
+        sum |x(i) - xapprox(i)|^2 / sum |x(i)|^2 <= 0.01
+            99% of variance is retained
+
+Algorithm:
+    1- try PCA with k = 1
+    2- Compute Ureduce,z(1)...z(m),xapprox(1)...xapprox(m)
+    3- check if:
+        sum |x(i) - xapprox(i)|^2 / sum |x(i)|^2 <= 0.01
+    - else k++ and back to 1-
+
+Fast algorithm:
+    [U,S,V] = svd(Sigma)
+        sum |x(i) - xapprox(i)|^2 / sum |x(i)|^2 <= 0.01
+            <=>
+        sum to k (Sii)/sum to n (Sii) >= 0.99
+
