@@ -1,0 +1,16 @@
+# vim: ft=indentcolor spell
+
+Why not using supervised learning:
+    - we have labels
+    - so why not?...
+
+Anomaly Detection:
+    - very small number of positive examples (anomalies)
+    - large number of negative example (normal)
+    - many different "types" of anomalies:
+        + hard for any algo to learn from positive examples
+        + future anomalies may look nothing like any of the previous anomalous examples
+
+Supervised Learning:
+    - large number of positive and negative examples
+    - future pos examples likely to be similar to ones in training set

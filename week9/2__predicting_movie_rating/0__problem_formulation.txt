@@ -1,0 +1,9 @@
+# vim: ft=indentcolor spell
+
+Example: predicting movie ratings:
+    - notation:
+        + nu = nb users
+        + nm = nb movies
+        + r(i,j) = 1 if user j rated movie i
+        + y(i,j) = rating given by user j to movie i
+            defined only if r(i,j)

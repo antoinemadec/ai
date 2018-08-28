@@ -1,0 +1,27 @@
+# vim: ft=indentcolor spell
+
+Example:
+    - each movie has 2 features:
+        + x1: romance in [0:1]
+        + x2: action in [0:1]
+    - if we have 5 movies:
+        X = {x(1),...,x(5)}
+    - for each user j, learn a parameter theta(j) in R3
+        predict user j as rating movie i with:
+            (theta(j))T*x(i)
+        we just apply a different linear prediction for each user
+
+Problem formulation:
+    - r(i,j) = 1 if user j rated movie i
+    - y(i,j) = rating by user j on movie i (if defined)
+    - theta(j) = parameter vector for user j
+    - x(i) = feature vector for movie i
+    - for user j, movie i, predicted rating: (theta(j))T*(x(i))
+    - m(j) = nb of movies rated by user j
+    - to learn theta(j) -for one user-, minimize:
+        1/2*m(j) * sum((theta(j)T*x(i)-y(i,j))^2) + lambda/2m(j) * sum((theta(j))^2)
+    - to learn THETA(j) -for all user-, minimize:
+        1/2 * sum(sum((theta(j)T*x(i)-y(i,j))^2)) + lambda/2 * sum(sum((theta(j))^2))
+    - gradient descent update:
+        theta_k(j) := theta_k(j) - alpha*sum((theta(j)T*x(i)-y(i,j))*xk(i))
+            -alpha*lambda*thata_k(j)    (for k!=0)

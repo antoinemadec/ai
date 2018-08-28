@@ -1,0 +1,15 @@
+# vim: ft=indentcolor spell
+
+Density estimation:
+    - training set: {x(1),...,x(m)}
+    - assume each feature is following a gaussian dist N(mu_i,sigma_i^2)
+        p(x) = p(x1;mu_1,sigma_1^2) * ... * p(xn;mu_n,sigma_n^2)
+
+Anomaly Detection Algorithm:
+    1- choose features xi that you think might be indicative of anomalous examples
+    2- fit parameters:
+        mu_j      = 1/m * sum(xj(i))
+        sigma_j^2 = 1/m * sum((xj(i)-mu_j)^2)
+    3- given a new example x, compute p(x):
+        p(x)      = prod(p(xj;mu_j,sigma_j^2)
+        .         = prod((1/(sqrt(2pi)*sigma_j)) * exp(-(sj-mu_j)^2/(2*sigma_j^2)))

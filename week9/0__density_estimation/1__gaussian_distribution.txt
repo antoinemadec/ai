@@ -1,0 +1,10 @@
+# vim: ft=indentcolor spell
+
+Gaussian (normal distribution):
+    - x is a distrivuted Gaussian with mean mu, variance sigma^2
+        p(x;mu,sigma^2) =
+            (1/(sqrt(2*pi)*sigma)) * exp(-(x-mu)^2 / (2*sigma^2))
+
+Parameter estimation:
+    mu      = 1/m * sum(x(i))
+    sigma^2 = 1/m * sum( (x(i)-mu)^2 )

@@ -1,0 +1,20 @@
+# vim: ft=indentcolor spell
+
+Non-gaussian features:
+    - make sure you features look gaussian
+    - if not gaussian, try to transform your feature to a gaussian
+
+Error analysis for anomaly detection:
+    - most common problem:
+        + p(x) is comparable for normal and anomalous example
+        + solution: add features
+
+Monitoring computers in a data center:
+    - choose features that might take on large or small values when anomalous
+        + x1 = mem use
+        + x2 = disk accesses / sec
+        + x3 = CPU load
+        + x4 = network traffic
+        + x5 = x3/x4
+        + x6 = x3^2/x4
+        etc

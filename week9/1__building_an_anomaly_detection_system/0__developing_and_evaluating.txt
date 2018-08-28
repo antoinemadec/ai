@@ -1,0 +1,16 @@
+# vim: ft=indentcolor spell
+
+Evaluation:
+    - if we had labels normal/anomalous, that would be easier
+        + training set: x(1),...,x(m)
+            on normal example
+            compute p(x)
+        + CV set
+            on normal AND anomalous
+            compute epsilon
+        + test set
+            on normal AND anomalous
+            evaluate anomaly detection system, use
+                true positive, false pos, false neg, true neg
+                precision/recall
+                F1-score

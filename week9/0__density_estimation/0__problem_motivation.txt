@@ -1,0 +1,12 @@
+# vim: ft=indentcolor spell
+
+Anomaly Detection Example:
+    - aircraft engine features:
+        x1 = heat generated
+        x2 = vibration intensity
+    - dataset: {x(1),...,x(m)}
+    - is xtest anomalous?
+        no:     if "close" to dataset
+            i.e.: p(x) > epsilon
+        yes:    if "far" from dataset
+            i.e.: p(x) <= epsilon
