@@ -1,0 +1,10 @@
+# vim: ft=indentcolor spell
+
+Problem:
+    - let's assume user 5 has not rated anything
+    - we min(J) when theta(5) = 0
+
+Solution:
+    - prediction is now:
+        theta(j)T*x(i) + mu_i
+    - that way predicted user 5 rating = means

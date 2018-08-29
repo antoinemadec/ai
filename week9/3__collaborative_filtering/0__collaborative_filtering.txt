@@ -1,0 +1,14 @@
+# vim: ft=indentcolor spell
+
+Problem Motivation:
+    - users tell us that they like romantic or action movie
+        they give us their theta
+    - try to guess the features (x1,x2) of each movie based on:
+        + users' theta
+        + users' rating (when define)
+
+Optimization Algorithm:
+    to learn x(i), try to minimize:
+        1/2 * sum((theta(j)T*x(i)-y(i,j))^2) + lambda/2 * sum(x(i)^2)
+    principle:
+        guess theta from x, guess x from theta, guess theta from x, etc

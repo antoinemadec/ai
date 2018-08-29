@@ -1,0 +1,22 @@
+# vim: ft=indentcolor spell
+
+Vectorization:
+    Y =
+        y(1,1),     ..., y(1,nu)
+        .
+        .
+        .
+        y(1,nm),    ..., y(nm,nu)
+    X =
+        x(1)T
+        ...
+        x(nm)T
+    THETA =
+        theta(1)T
+        ...
+        theta(nu)T
+    we now have:
+        Y = X*(THETA)T
+
+Find related movies:
+    ||x(i) - x(j)|| close to 0

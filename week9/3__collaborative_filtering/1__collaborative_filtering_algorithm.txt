@@ -1,0 +1,18 @@
+# vim: ft=indentcolor spell
+
+
+Optimization Objective:
+    given x(1),...,x(nm), estimate theta(1),...,theta(nu):
+        min 1/2 * sum(sum((theta(j)T*x(i)-y(i,j))^2)) + lambda/2 * sum(sum(theta(j)^2))
+    given theta(1),...,theta(nu), estimate x(1),...,x(nm):
+        min 1/2 * sum(sum((theta(j)T*x(i)-y(i,j))^2)) + lambda/2 * sum(sum(x(j)^2))
+    minimizing x and theta simultaneously:
+        min 1/2 * sum(sum((theta(j)T*x(i)-y(i,j))^2)) + lambda/2 * (sum(sum(x(j)^2)) + sum(sum(theta(j)^2)))
+
+Algorithm:
+    1- init x(1),...,x(nm),theta(1),...,theta(nu) to small random values
+    2- minimize gradient descent
+        xk(i) := xk(i) - alpha*[sum((theta(j)T*x(i)-y(i,j))*tk(j)) + lambda*xk(i)]
+        tk(i) := tk(i) - alpha*[sum((theta(j)T*x(i)-y(i,j))*xk(j)) + lambda*tk(i)]
+    3- predicted rating:
+        thetaT*x
