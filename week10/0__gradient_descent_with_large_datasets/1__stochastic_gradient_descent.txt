@@ -1,0 +1,26 @@
+# vim: ft=indentcolor spell
+
+Example with linear regression:
+    - h(x) =
+        sum(tj*xj)
+    - Jtrain =
+        1/2m * sum((h*x(i)-y(i))^2)
+    - training:
+        tj := tj - alpha/m * sum((h(x(i))-y(i))*xj(i))
+
+Goal: have a less computationally intensive training
+    - cost(t,(x(i).y(i))) =
+        1/2 * (h(x(i))-y(i))^2)
+    - Jtrain =
+        1/m * sum(cost(t,(x(i).y(i))))
+    - algo:
+        1- randomly shuffle dataset
+        2- repeat (1 to 10 times) {
+            for i=1,...,m {
+                for j in 1,...,n {
+                    tj := tj - alpha * (h(x(i)) - y(i))*xj(i)
+                }
+            }
+        }
+    - tj won't necessarily minimize J at each update
+

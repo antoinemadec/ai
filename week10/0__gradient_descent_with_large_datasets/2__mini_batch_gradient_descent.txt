@@ -1,0 +1,18 @@
+# vim: ft=indentcolor spell
+
+Recap:
+    - batch gradient descent:
+        use m examples at each iteration (tj update)
+    - stochastic gradient descent
+        use 1 example at each iteration (tj update)
+    - mini batch gradient descent
+        use b examples at each iteration (tj update)
+
+Example:
+    - b = 10, m = 1000
+    - algo
+        repeat (1 to 10 times) {
+            for i=1,11,21,...,991 {
+                tj := tj - alpha * sum_from_i_to_i+10((h(x(i)) - y(i))*xj(i))
+            }
+        }

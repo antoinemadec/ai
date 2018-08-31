@@ -1,0 +1,10 @@
+# vim: ft=indentcolor spell
+
+Learning with large Datasets:
+    - let's say we have m = 100,000,000
+    - gradient descent:
+        tj := tj - alpha/m * sum((h(x(i))-y(i))*xj(i))
+            that is computationally intensive!!!
+    - use 1000 examples to see if a bigger dataset is needed
+        datasets needed with high variance systems
+            look at the learning curve (Jtrain,Jcv) = f(m)
