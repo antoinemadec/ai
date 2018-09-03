@@ -1,0 +1,22 @@
+# vim: ft=indentcolor spell
+
+Online Learning:
+    - shipping service website want to know if customer will use shipping service (y=1), or not (y=0)
+    - features x capture properties of user, origin/dest and asking price
+    - we want to learn p(y=1|x;theta)
+        repeat forever {
+            get (x,y) corresponding to user
+            update theta using (x,y):
+                tj := tj - alpha(h(x)-y)*xj
+        }
+        + no fixed training set
+        + can adapt to chaing user preference
+
+Other online learning example:
+    - product search (learning to search)
+        + user searches for "android phone 1080p camera"
+        + have 100 phones in store, will return 10 results
+        + context:
+            x:  relevant features of phone and query
+            y: (1) if user clicks on link; (0) otherwise
+            learn p(y=1|x;theta)    (predicted CTR [click trough rate])

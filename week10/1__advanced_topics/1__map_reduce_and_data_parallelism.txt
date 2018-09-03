@@ -1,0 +1,15 @@
+# vim: ft=indentcolor spell
+
+Map reduce:
+    - batch gradient descent, m=400
+        tj := tj - alpha/400 * sum( (h(x(i))-y(i))*xj(i) )
+            machine 1: use (x(1),y(1)) ... x((100),y(100))
+                temp_j(1) = sum( (h(x(i))-y(i))*xj(i) )
+            machine 2: use (x(101),y(101)) ... x((200),y(200))
+                temp_j(2) = sum( (h(x(i))-y(i))*xj(i) )
+            machine 3: use (x(201),y(201)) ... x((300),y(300))
+                temp_j(3) = sum( (h(x(i))-y(i))*xj(i) )
+            machine 4: use (x(301),y(301)) ... x((400),y(400))
+                temp_j(4) = sum( (h(x(i))-y(i))*xj(i) )
+        combine: tj := tj - alpha/400 * (temp_j(1)+temp_j(2)+temp_j(3)+temp_j(4))
+    - also works with multiple cores

@@ -1,2 +1,14 @@
 # vim: ft=indentcolor spell
 
+Check convergrence:
+    - batch gradient descent:
+        + plot Jtrain as a function of the number of iterations of grad descent
+        + Jtrain = 1/2m * sum( (h(x(i))-y(i))^2 )
+    - stochastic gradient descent:
+        + cost(theta,(x(i),y(i))) = 1/2 * (h(x(i))-y(i))^2
+        + during learning compute cost(theta,(x(i),y(i))) before updating theta
+        + every 100 iterations, plot cost(theta,(x(i),y(i))) averaged over the last 1000
+
+Learning rate:
+    - typically held constant for stochastic grad desc
+    - can slowly decrease alpha over time if we want theta to converge
