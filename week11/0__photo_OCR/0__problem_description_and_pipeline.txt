@@ -1,0 +1,6 @@
+# vim: ft=indentcolor spell
+
+Pipeline:
+    1- text detection
+    2- character segmentation
+    3- character classification
