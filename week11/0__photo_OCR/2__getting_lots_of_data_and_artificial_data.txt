@@ -1,2 +1,31 @@
 # vim: ft=indentcolor spell
 
+How to get lots of data?
+    - artificial data synthesis
+        + generating random data from scratch
+        + add distortion to preexisting data
+            * pure random is usually not a great idea
+            * try generating distortion that mimic real life
+    - discussion on getting mode data
+        1- always make sure you need more data
+            * use learning curve (Jtrain, Jcv)
+        2- how much work would it be to get 10x as much data as we currently have?
+            * artificial data synthesis
+            * collect/label it yourself
+            * crowd source  (Amazon Mechanical Turk)
+
+Example: OCR
+    - generating random data from scratch:
+        1- put random back ground in each frame
+        2- chose a font
+        3- put chars in each frame
+    - add distortion to preexisting data:
+        - warp char
+        - add noise
+        - etc
+
+Example: speech recognition
+    - add distortion to preexisting data:
+        - bad cellphone connection
+        - noisy background: crowd
+        - noisy background: machinery

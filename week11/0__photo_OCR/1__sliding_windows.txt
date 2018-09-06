@@ -1,2 +1,21 @@
 # vim: ft=indentcolor spell
 
+Sliding window example: pedestrian detection
+    - agree on ratio: 82x36
+    - feed the NN on sliding windows of 82x36 in the image
+        + choose a step-size/stride
+    - do the same with larger window
+        + instead of bigger window, use smaller image
+
+Pipeline:
+    1- text detection
+        a- use a 2D sliding window
+        b- use expansion algorithm to connect all the letters and have rectangles
+        c- check aspect ration of rectangles who seem OK
+    2- character segmentation
+        use a 1D sliding window on the rectangle
+            y=1 when window in between 2 letters
+        output x coord of separation in the rectangle
+    3- character classification
+        use NN
+
