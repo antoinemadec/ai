@@ -1,2 +1,12 @@
 # vim: ft=indentcolor spell
 
+Estimating the errors due to each component (ceiling analysis):
+    - pipeline:
+        1- text detection
+        2- character segmentation
+        3- character classification
+    - accuracy:
+        + overall: 72%
+        + manually select good text detection: 89%
+        + manually select good text detection + char segm: 90%
+    - conclusion: spend more time on '1- text detection'
