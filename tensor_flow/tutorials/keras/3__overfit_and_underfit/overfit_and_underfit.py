@@ -181,3 +181,112 @@ plt.show()
 # (resulting in a low training loss), but the more susceptible it is to
 # overfitting (resulting in a large difference between the training and
 # validation loss).
+
+# -------------------------------------------------------------
+# strategies
+# -------------------------------------------------------------
+# ------------------------------
+# add weight regularization
+# ------------------------------
+# You may be familiar with Occam's Razor principle: given two explanations for
+# something, the explanation most likely to be correct is the "simplest" one,
+# the one that makes the least amount of assumptions. This also applies to the
+# models learned by neural networks: given some training data and a network
+# architecture, there are multiple sets of weights values (multiple models)
+# that could explain the data, and simpler models are less likely to overfit
+# than complex ones.
+
+# A "simple model" in this context is a model where the distribution of
+# parameter values has less entropy (or a model with fewer parameters
+# altogether, as we saw in the section above). Thus a common way to mitigate
+# overfitting is to put constraints on the complexity of a network by forcing
+# its weights only to take small values, which makes the distribution of weight
+# values more "regular". This is called "weight regularization", and it is done
+# by adding to the loss function of the network a cost associated with having
+# large weights. This cost comes in two flavors:
+
+#     L1 regularization, where the cost added is proportional to the absolute
+#     value of the weights coefficients (i.e. to what is called the "L1 norm"
+#     of the weights).
+
+#     L2 regularization, where the cost added is proportional to the square of
+#     the value of the weights coefficients (i.e. to what is called the "L2
+#     norm" of the weights). L2 regularization is also called weight decay in
+#     the context of neural networks. Don't let the different name confuse you:
+#     weight decay is mathematically the exact same as L2 regularization.
+
+# In tf.keras, weight regularization is added by passing weight regularizer
+# instances to layers as keyword arguments. Let's add L2 weight regularization
+# now.
+l2_model = keras.models.Sequential([
+    keras.layers.Dense(16, kernel_regularizer=keras.regularizers.l2(0.001),
+                       activation=tf.nn.relu, input_shape=(NUM_WORDS,)),
+    keras.layers.Dense(16, kernel_regularizer=keras.regularizers.l2(0.001),
+                       activation=tf.nn.relu),
+    keras.layers.Dense(1, activation=tf.nn.sigmoid)
+])
+
+l2_model.compile(optimizer='adam',
+                 loss='binary_crossentropy',
+                 metrics=['accuracy', 'binary_crossentropy'])
+
+l2_model_history = l2_model.fit(train_data, train_labels,
+                                epochs=20,
+                                batch_size=512,
+                                validation_data=(test_data, test_labels),
+                                verbose=2)
+
+# As you can see, the L2 regularized model has become much more resistant to
+# overfitting than the baseline model, even though both models have the same
+# number of parameters.
+
+# ------------------------------
+# add dropout
+# ------------------------------
+# Dropout is one of the most effective and most commonly used regularization
+# techniques for neural networks, developed by Hinton and his students at the
+# University of Toronto. Dropout, applied to a layer, consists of randomly
+# "dropping out" (i.e. set to zero) a number of output features of the layer
+# during training. Let's say a given layer would normally have returned a
+# vector [0.2, 0.5, 1.3, 0.8, 1.1] for a given input sample during training;
+# after applying dropout, this vector will have a few zero entries distributed
+# at random, e.g. [0, 0.5, 1.3, 0, 1.1]. The "dropout rate" is the fraction of
+# the features that are being zeroed-out; it is usually set between 0.2 and
+# 0.5. At test time, no units are dropped out, and instead the layer's output
+# values are scaled down by a factor equal to the dropout rate, so as to
+# balance for the fact that more units are active than at training time.
+
+# In tf.keras you can introduce dropout in a network via the Dropout layer,
+# which gets applied to the output of layer right before.
+
+# Let's add two Dropout layers in our IMDB network to see how well they do at
+# reducing overfitting:
+
+dpt_model = keras.models.Sequential([
+    keras.layers.Dense(16, activation=tf.nn.relu, input_shape=(NUM_WORDS,)),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(16, activation=tf.nn.relu),
+    keras.layers.Dropout(0.5),
+    keras.layers.Dense(1, activation=tf.nn.sigmoid)
+])
+
+dpt_model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy','binary_crossentropy'])
+
+dpt_model_history = dpt_model.fit(train_data, train_labels,
+                                  epochs=20,
+                                  batch_size=512,
+                                  validation_data=(test_data, test_labels),
+                                  verbose=2)
+
+# Adding dropout is a clear improvement over the baseline model.
+
+# To recap: here the most common ways to prevent overfitting in neural
+# networks:
+
+#     Get more training data.  Reduce the capacity of the network.  Add weight
+#     regularization.  Add dropout.
+
+# And two important approaches not covered in this guide are data-augmentation
+# and batch normalization.
