@@ -202,7 +202,18 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         #######################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        x_mean = np.mean(x, axis=0)
+        x_minus_mean = x - x_mean
+        x_var = np.var(x, axis=0)
+        x_var_plus_eps = x_var + eps
+        inv_sqrt_x_var_plus_eps = 1/np.sqrt(x_var_plus_eps)
+        x_mod = x_minus_mean * inv_sqrt_x_var_plus_eps
+        out = gamma * x_mod + beta
+
+        cache = (gamma, x_minus_mean, inv_sqrt_x_var_plus_eps, x_mod)
+
+        running_mean = momentum * running_mean + (1-momentum) * x_mean
+        running_var = momentum * running_var + (1-momentum) * x_var
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         #######################################################################
@@ -217,7 +228,8 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         #######################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        out = (x - running_mean) / np.sqrt(running_var + eps)
+        out = gamma * out + beta
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         #######################################################################
@@ -259,7 +271,16 @@ def batchnorm_backward(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    (gamma, x_minus_mean, inv_sqrt_x_var_plus_eps, x_mod) = cache
+    N = dout.shape[0]
+
+    dx_mod = dout * gamma
+    dvar = np.sum(dx_mod * x_minus_mean * (-1/2) * inv_sqrt_x_var_plus_eps**3, axis=0)
+    dmean = np.sum(-1*dx_mod*inv_sqrt_x_var_plus_eps, axis=0) + dvar * np.sum(-2*x_minus_mean, axis=0)/N
+
+    dx = dx_mod*inv_sqrt_x_var_plus_eps + dvar*2*x_minus_mean/N + dmean/N
+    dgamma = np.sum(dout*x_mod, axis=0)
+    dbeta = np.sum(dout, axis=0)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -294,7 +315,7 @@ def batchnorm_backward_alt(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    (dx, dgamma, dbeta) = batchnorm_backward(dout, cache) # is already optimized
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################

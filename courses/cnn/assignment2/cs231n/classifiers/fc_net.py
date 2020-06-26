@@ -214,6 +214,9 @@ class FullyConnectedNet(object):
                 scale=weight_scale, size=(prev_dim, hidden_dim))
             self.params['b'+str(i+1)] = np.zeros(hidden_dim)
             prev_dim = hidden_dim
+            if self.normalization == "batchnorm":
+                self.params['gamma'+str(i+1)] = np.ones(hidden_dim)
+                self.params['beta'+str(i+1)] = np.zeros(hidden_dim)
         self.params['W'+str(i+2)] = np.random.normal(
             scale=weight_scale, size=(prev_dim, num_classes))
         self.params['b'+str(i+2)] = np.zeros(num_classes)
@@ -282,8 +285,14 @@ class FullyConnectedNet(object):
 
         prev = X
         for i in range(self.num_layers-1):
-            layers += [affine_relu_forward(
-                prev, self.params['W'+str(i+1)], self.params['b'+str(i+1)])]
+            if self.normalization == "batchnorm":
+                layers += [affine_bn_relu_forward(
+                    prev, self.params['W'+str(i+1)], self.params['b'+str(i+1)],
+                    self.params['gamma'+str(i+1)], self.params['beta'+str(i+1)],
+                    self.bn_params[i])]
+            else:
+                layers += [affine_relu_forward(
+                    prev, self.params['W'+str(i+1)], self.params['b'+str(i+1)])]
             prev = layers[-1][0]
         scores, scores_cache = affine_forward(
             prev, self.params['W'+str(i+2)], self.params['b'+str(i+2)])
@@ -319,9 +328,13 @@ class FullyConnectedNet(object):
          grads['b'+str(self.num_layers)]) = affine_backward(dscores, scores_cache)
         for i in range(self.num_layers-1):
             l = self.num_layers - 2 - i
-            (dh,
-             grads['W'+str(l+1)],
-             grads['b'+str(l+1)]) = affine_relu_backward(dh, layers[l][1])
+            if self.normalization == "batchnorm":
+                (dh, grads['W'+str(l+1)], grads['b'+str(l+1)],
+                 grads['gamma'+str(l+1)], grads['beta'+str(l+1)]
+                 ) = affine_bn_relu_backward(dh, layers[l][1])
+            else:
+                (dh, grads['W'+str(l+1)], grads['b'+str(l+1)]
+                 ) = affine_relu_backward(dh, layers[l][1])
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
