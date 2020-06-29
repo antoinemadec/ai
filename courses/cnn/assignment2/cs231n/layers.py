@@ -245,7 +245,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     return out, cache
 
 
-def batchnorm_backward(dout, cache):
+def batchnorm_backward(dout, cache, compute_dx_only=0):
     """
     Backward pass for batch normalization.
 
@@ -279,8 +279,9 @@ def batchnorm_backward(dout, cache):
     dmean = np.sum(-1*dx_mod*inv_sqrt_x_var_plus_eps, axis=0) + dvar * np.sum(-2*x_minus_mean, axis=0)/N
 
     dx = dx_mod*inv_sqrt_x_var_plus_eps + dvar*2*x_minus_mean/N + dmean/N
-    dgamma = np.sum(dout*x_mod, axis=0)
-    dbeta = np.sum(dout, axis=0)
+    if not compute_dx_only:
+        dgamma = np.sum(dout*x_mod, axis=0)
+        dbeta = np.sum(dout, axis=0)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -361,7 +362,13 @@ def layernorm_forward(x, gamma, beta, ln_param):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N, D = x.shape
+    ln_param["mode"] = "train"
+    x_res = x.reshape(N*D, 1)
+    gamma_res = np.tile(gamma, N).reshape(N*D,1)
+    beta_res = np.tile(beta, N).reshape(N*D,1)
+    (out, cache) = batchnorm_forward(x_res, gamma_res, beta_res, ln_param)
+    out = out.reshape(N, D)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
@@ -396,7 +403,14 @@ def layernorm_backward(dout, cache):
     ###########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N, D = dout.shape
+    (dx, dgamma, dbeta) = batchnorm_backward(dout.reshape(N*D, 1), cache,
+                                             compute_dx_only=1)
+    dx = dx.reshape(N,D)
+
+    x_mod = cache[-1].reshape(N,D)
+    dgamma = np.sum(dout*x_mod, axis=0)
+    dbeta = np.sum(dout, axis=0)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ###########################################################################
