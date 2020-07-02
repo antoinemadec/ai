@@ -63,7 +63,27 @@ class ThreeLayerConvNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # conv
+        (C, H, W) = input_dim
+        F = num_filters
+        HH = filter_size
+        WW = filter_size
+        self.params["W1"] = weight_scale * np.random.randn(F, C, HH, WW)
+        self.params["b1"] = np.zeros(F)
+
+        # 1st affine
+        pool_height = 2
+        pool_width = 2
+        pool_stride = 2
+        H_ = 1 + (H - pool_height) // pool_stride
+        W_ = 1 + (W - pool_width) // pool_stride
+        D = F * H_ * W_
+        self.params["W2"] = weight_scale * np.random.randn(D, hidden_dim)
+        self.params["b2"] = np.zeros(hidden_dim)
+
+        # 2nd affine
+        self.params["W3"] = weight_scale * np.random.randn(hidden_dim, num_classes)
+        self.params["b3"] = np.zeros(num_classes)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -102,7 +122,9 @@ class ThreeLayerConvNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        out_1, cache_1 = conv_relu_pool_forward(X, W1, b1, conv_param, pool_param)
+        out_2, cache_2 = affine_relu_forward(out_1, W2, b2)
+        scores, cache_3 = affine_forward(out_2, W3, b3)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -125,7 +147,17 @@ class ThreeLayerConvNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        loss, dscores = softmax_loss(scores, y)
+        (dout_2, grads['W3'], grads['b3']) = affine_backward(dscores, cache_3)
+        (dout_1, grads['W2'], grads['b2']) = affine_relu_backward(dout_2, cache_2)
+        (_, grads['W1'], grads['b1']) = conv_relu_pool_backward(dout_1, cache_1)
+
+        # regularization
+        reg_sum = 0
+        for k in ['W1', 'W2', 'W3']:
+            reg_sum += np.sum(np.square(self.params[k]))
+            grads[k] += self.reg * self.params[k]
+        loss += self.reg * reg_sum / 2
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
