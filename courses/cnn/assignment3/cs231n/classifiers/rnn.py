@@ -151,7 +151,30 @@ class CaptioningRNN(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # forward pass
+        # (1) initial hidden state. shape (N, H)
+        (h0, cache_proj) = affine_forward(features, W_proj, b_proj)
+        # (2) input: captions_in vectors. shape (N, T, W)
+        (captions_in_embed, cache_embed) = word_embedding_forward(captions_in, W_embed)
+        # (3) hidden state vectors for all timesteps: shape (N, T, H)
+        if self.cell_type == 'rnn':
+            (h, cache_rnn) = rnn_forward(captions_in_embed, h0, Wx, Wh, b)
+        else:
+            return
+        # (4) scores: hidden to vocab. shape (N, T, V)
+        (vocab, cache_vocab) = temporal_affine_forward(h, W_vocab, b_vocab)
+        # (5) loss
+        mask = 1*(captions_out!=self._null)
+        (loss, dvocab) = temporal_softmax_loss(vocab, captions_out, mask)
+
+        # backward pass
+        (dh,grads["W_vocab"],grads["b_vocab"]) = temporal_affine_backward(dvocab, cache_vocab)
+        if self.cell_type == 'rnn':
+            (dcaptions_in_embed, dh0, grads["Wx"], grads["Wh"], grads["b"]) = rnn_backward(dh, cache_rnn)
+        else:
+            return
+        grads["W_embed"] = word_embedding_backward(dcaptions_in_embed, cache_embed)
+        (dfeatures, grads["W_proj"], grads["b_proj"]) = affine_backward(dh0, cache_proj)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -219,7 +242,19 @@ class CaptioningRNN(object):
         ###########################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        (h0, _) = affine_forward(features, W_proj, b_proj)
+        prev_words = np.zeros((N,1), dtype=int)
+        prev_words[:,0] = self._start
+        prev_h = h0
+
+        for t in range(max_length):
+            (prev_words_embed, _) = word_embedding_forward(prev_words, W_embed)
+            (h, _) = rnn_step_forward(prev_words_embed[:, 0, :], prev_h, Wx, Wh, b)
+            (vocab, _) = affine_forward(h, W_vocab, b_vocab)
+            words = np.argmax(vocab, 1)
+            captions[:,t] = words
+            prev_h = h
+            prev_words = np.resize(words, (N,1))
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
