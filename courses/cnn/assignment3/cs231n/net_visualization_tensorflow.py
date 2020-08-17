@@ -35,7 +35,13 @@ def compute_saliency_maps(X, y, model):
     ###############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    N = y.shape[0]
+    X_var = tf.Variable(X)
+    with tf.GradientTape() as tape:
+        loss = model.call(X_var)
+        correct_loss = tf.gather_nd(loss, tf.stack((tf.range(N), y), axis=1))
+        dX = tape.gradient(correct_loss, X_var)
+        saliency = np.max(np.abs(dX), axis=3)
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ##############################################################################
@@ -84,7 +90,16 @@ def make_fooling_image(X, target_y, model):
     ##############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    while True:
+        X_var = tf.Variable(X_fooling)
+        with tf.GradientTape() as tape:
+            loss = model.call(X_var)
+            y = np.argmax(loss, axis=1)
+            if y == target_y:
+                break
+            g = tape.gradient(loss[0,target_y], X_var)
+            dX = learning_rate * g / np.linalg.norm(g)
+            X_fooling += dX
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ##############################################################################
@@ -103,7 +118,13 @@ def class_visualization_update_step(X, model, target_y, l2_reg, learning_rate):
     ########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    pass
+    X_var = tf.Variable(X)
+    with tf.GradientTape() as tape:
+        reg = l2_reg*np.power(np.linalg.norm(X_var), 2)
+        loss = model.call(X_var)
+        g = tape.gradient(loss[0,target_y]-reg, X_var)
+        dX = learning_rate * g / np.linalg.norm(g)
+        X += dX
 
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     ############################################################################
