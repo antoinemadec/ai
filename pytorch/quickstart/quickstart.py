@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
+import os.path
+
+import matplotlib.pyplot as plt
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
-
-import os.path
 
 # --------------------------------------------------------------
 # Working with data
@@ -76,8 +77,8 @@ if not os.path.exists("model.pth"):
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
-    def train(dataloader, model, loss_fn, optimizer):
-        size = len(dataloader.dataset)
+    def train(dataloader: DataLoader, model: NeuralNetwork, loss_fn: nn.CrossEntropyLoss, optimizer: torch.optim.Optimizer):
+        size = len(dataloader.dataset)  # type: ignore
         model.train()
         for batch, (X, y) in enumerate(dataloader):
             X, y = X.to(device), y.to(device)
@@ -95,8 +96,8 @@ if not os.path.exists("model.pth"):
                 loss, current = loss.item(), batch * len(X)
                 print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
 
-    def test(dataloader, model, loss_fn):
-        size = len(dataloader.dataset)
+    def test(dataloader: DataLoader, model: NeuralNetwork, loss_fn: nn.CrossEntropyLoss):
+        size = len(dataloader.dataset)  # type: ignore
         num_batches = len(dataloader)
         model.eval()
         test_loss, correct = 0, 0
@@ -142,9 +143,12 @@ classes = [
 ]
 
 model.eval()
-for i in range(10):
+for i in range(100):
     x, y = test_data[i][0], test_data[i][1]
     with torch.no_grad():
         pred = model(x)
         predicted, actual = classes[pred[0].argmax(0)], classes[y]
         print(f'Predicted: "{predicted}", Actual: "{actual}"')
+        if predicted != actual:
+            plt.imshow(x.squeeze())
+            plt.show()
