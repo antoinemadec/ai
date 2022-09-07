@@ -68,9 +68,6 @@ class Snake:
         grid[self.fruit_coords] = 4
         return grid
 
-    def get_score(self):
-        return len(self.snake_coords) * self.step_nb
-
     def print_grid(self) -> str:
         string = ""
         for x in range(self.grid_size):

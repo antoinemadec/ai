@@ -2,14 +2,9 @@
 
 import torch
 from torch import nn
+import numpy as np
 
 from snake.snake import Snake  # type: ignore
-
-# -------------------------------------------------------------
-# model
-# -------------------------------------------------------------
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"Using {device} device")
 
 
 class NeuralNetwork(nn.Module):
@@ -29,28 +24,54 @@ class NeuralNetwork(nn.Module):
         return logits
 
 
-def infer_direction(grid, model: NeuralNetwork):
+class Individual:
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    def __init__(self, grid_size=20):
+        with torch.no_grad():
+            self.model = NeuralNetwork().to(self.device)
+            self.model.eval()
+        self.score = 0
+
+    def infer_direction(self, grid):
+        with torch.no_grad():
+            pred = self.model(torch.from_numpy(grid).to(self.device))
+            index = pred.argmax(0)
+            direction = ("right", "left", "up", "down")[index]
+            return direction
+
+    def play(self) -> None:
+        s = Snake()
+        while s.process_next_state(self.infer_direction(s.get_grid())):
+            if (s.step_nb > 150000):
+                break
+        self.score = len(s.snake_coords)
+
+
+population: list[Individual] = []
+
+# 1- initial population
+for i in range(1000):
+    population.append(Individual())
+
+for gen_idx in range(100):
+    print(f"gen_{gen_idx}")
+    # 2- evaluation
+    for individual in population:
+        individual.play()
+
+    # 3- selection
+    population.sort(key=lambda i: i.score, reverse=True)
+    parent = population[0]
+    print(f"best={parent.score}")
+
+    # 4- crossover
     with torch.no_grad():
-        pred = model(torch.from_numpy(grid).to(device))
-        index = pred.argmax(0)
-        direction = ("right", "left", "up", "down")[index]
-        print(direction)
-        return direction
+        for individual in population[1:]:
+            for parent_p, p in zip(parent.model.parameters(), individual.model.parameters()):
+                parent_p_flat = torch.clone(parent_p.flatten())
+                p_flat = p.flatten()
+                mask = np.random.randint(2, size=p_flat.shape[0])
+                p_flat[mask == 1] = parent_p_flat[mask == 1]
 
-
-with torch.no_grad():
-    model = NeuralNetwork().to(device)
-    print(model)
-    model.eval()
-
-    s = Snake()
-
-    while s.process_next_state(infer_direction(s.get_grid(), model)):
-        # print(s.print_grid())
-        print(s.get_score())
-
-    # TODO: cross over
-    # for p in model.parameters():
-    #     p_flat = p.flatten()
-        # for i, v in enumerate(p_flat):
-        #     p_flat[i] = 0
+    # 5- mutation
