@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+import argparse
+
+import numpy as np
 import torch
 from torch import nn
-import numpy as np
 
 from snake.snake import Snake  # type: ignore
 
@@ -40,38 +42,64 @@ class Individual:
             direction = ("right", "left", "up", "down")[index]
             return direction
 
-    def play(self) -> None:
+    def play(self, display=False) -> None:
         s = Snake()
+        self.score = 0
         while s.process_next_state(self.infer_direction(s.get_grid())):
+            if display:
+                print(s.print_grid())
             if (s.step_nb > 150000):
-                break
-        self.score = len(s.snake_coords)
+                return
+        snake_len = len(s.snake_coords)
+        self.score = snake_len**snake_len + s.step_nb
 
 
-population: list[Individual] = []
+parser = argparse.ArgumentParser(
+    description='Genetic algorithm training NN to play snake')
+parser.add_argument(
+    '--play', help='play snake with best pre-trained network', action='store_true')
+args = parser.parse_args()
 
-# 1- initial population
-for i in range(1000):
-    population.append(Individual())
+if args.play:
+    i = Individual()
+    model = NeuralNetwork()
+    model.load_state_dict(torch.load("model.pth"))
+    i.model = model
+    i.play(True)
+else:
+    population: list[Individual] = []
 
-for gen_idx in range(100):
-    print(f"gen_{gen_idx}")
-    # 2- evaluation
-    for individual in population:
-        individual.play()
+    # 1- initial population
+    for i in range(1000):
+        population.append(Individual())
 
-    # 3- selection
-    population.sort(key=lambda i: i.score, reverse=True)
-    parent = population[0]
-    print(f"best={parent.score}")
+    gen_idx = 0
+    max_score = 0
+    while True:
+        # 2- evaluation
+        for individual in population:
+            individual.play()
 
-    # 4- crossover
-    with torch.no_grad():
-        for individual in population[1:]:
-            for parent_p, p in zip(parent.model.parameters(), individual.model.parameters()):
-                parent_p_flat = torch.clone(parent_p.flatten())
-                p_flat = p.flatten()
-                mask = np.random.randint(2, size=p_flat.shape[0])
-                p_flat[mask == 1] = parent_p_flat[mask == 1]
+        # 3- selection
+        population.sort(key=lambda i: i.score, reverse=True)
+        parent = population[0]
+        print(f"{gen_idx}, {parent.score}")
+        if parent.score > max_score:
+            max_score = parent.score
+            torch.save(parent.model.state_dict(), "model.pth")
+        gen_idx += 1
 
-    # 5- mutation
+        with torch.no_grad():
+            for individual in population[1:]:
+                for parent_p, p in zip(parent.model.parameters(), individual.model.parameters()):
+                    # 4- crossover
+                    parent_p_flat = torch.clone(parent_p.flatten())
+                    p_flat = p.flatten()
+                    mask = np.random.randint(2, size=p_flat.shape[0])
+                    p_flat[mask == 1] = parent_p_flat[mask == 1]
+                    # 5- mutation
+                    mask = np.random.randint(1000, size=p_flat.shape[0])
+                    mutated_values = np.random.random(
+                        size=p_flat.shape[0]).astype(np.float32)
+                    p_flat[mask < 5] = torch.from_numpy(
+                        mutated_values)[mask < 5]
