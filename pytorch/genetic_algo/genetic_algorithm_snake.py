@@ -9,15 +9,19 @@ from torch import nn
 from snake.snake import Snake  # type: ignore
 
 
+GRID_SIZE = 20
+POPULATION_SIZE = 1000
+PARENT_NB = 10
+
 class NeuralNetwork(nn.Module):
-    def __init__(self, grid_size=20):
+    def __init__(self, grid_size=GRID_SIZE):
         super(NeuralNetwork, self).__init__()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(grid_size*grid_size, 128),
+            nn.Linear(grid_size*grid_size, 10),
             nn.ReLU(),
-            nn.Linear(128, 128),
+            nn.Linear(10, 10),
             nn.ReLU(),
-            nn.Linear(128, 4)
+            nn.Linear(10, 4)
         )
 
     def forward(self, x):
@@ -29,9 +33,9 @@ class NeuralNetwork(nn.Module):
 class Individual:
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    def __init__(self, grid_size=20):
+    def __init__(self, grid_size=GRID_SIZE):
         with torch.no_grad():
-            self.model = NeuralNetwork().to(self.device)
+            self.model = NeuralNetwork(grid_size).to(self.device)
             self.model.eval()
         self.score = 0
 
@@ -70,7 +74,7 @@ else:
     population: list[Individual] = []
 
     # 1- initial population
-    for i in range(1000):
+    for i in range(POPULATION_SIZE):
         population.append(Individual())
 
     gen_idx = 0
@@ -90,11 +94,14 @@ else:
         gen_idx += 1
 
         with torch.no_grad():
-            for individual in population[1:]:
+            param_equal_cnt = 0
+            for individual in population[PARENT_NB:]:
                 for parent_p, p in zip(parent.model.parameters(), individual.model.parameters()):
                     # 4- crossover
                     parent_p_flat = torch.clone(parent_p.flatten())
                     p_flat = p.flatten()
+                    if p_flat.equal(parent_p_flat):
+                        param_equal_cnt += 1
                     mask = np.random.randint(2, size=p_flat.shape[0])
                     p_flat[mask == 1] = parent_p_flat[mask == 1]
                     # 5- mutation
@@ -103,3 +110,4 @@ else:
                         size=p_flat.shape[0]).astype(np.float32)
                     p_flat[mask < 5] = torch.from_numpy(
                         mutated_values)[mask < 5]
+            print(f"param_equal_cnt {param_equal_cnt}")
